@@ -15,6 +15,11 @@
 		18423C121C0D2DAD00D7B0E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18423C101C0D2DAD00D7B0E5 /* LaunchScreen.storyboard */; };
 		18423C1D1C0D2DAE00D7B0E5 /* circleDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18423C1C1C0D2DAE00D7B0E5 /* circleDemoTests.m */; };
 		18423C281C0D2DAE00D7B0E5 /* circleDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18423C271C0D2DAE00D7B0E5 /* circleDemoUITests.m */; };
+		18423C371C0D2F6F00D7B0E5 /* UIView+MySet.m in Sources */ = {isa = PBXBuildFile; fileRef = 18423C361C0D2F6F00D7B0E5 /* UIView+MySet.m */; };
+		186B4CB51C102F81004C81B7 /* ViewWithVertixView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186B4CB41C102F81004C81B7 /* ViewWithVertixView.m */; };
+		186B4CB81C10487C004C81B7 /* LineMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 186B4CB71C10487C004C81B7 /* LineMath.m */; };
+		186B4CBB1C104E71004C81B7 /* DrawLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186B4CBA1C104E71004C81B7 /* DrawLineView.m */; };
+		18D84C8C1C0D42CE003EE5BF /* FanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D84C8B1C0D42CE003EE5BF /* FanView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,16 @@
 		18423C231C0D2DAE00D7B0E5 /* circleDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = circleDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18423C271C0D2DAE00D7B0E5 /* circleDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = circleDemoUITests.m; sourceTree = "<group>"; };
 		18423C291C0D2DAE00D7B0E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18423C351C0D2F6F00D7B0E5 /* UIView+MySet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MySet.h"; sourceTree = "<group>"; };
+		18423C361C0D2F6F00D7B0E5 /* UIView+MySet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MySet.m"; sourceTree = "<group>"; };
+		186B4CB31C102F81004C81B7 /* ViewWithVertixView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewWithVertixView.h; sourceTree = "<group>"; };
+		186B4CB41C102F81004C81B7 /* ViewWithVertixView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewWithVertixView.m; sourceTree = "<group>"; };
+		186B4CB61C10487C004C81B7 /* LineMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineMath.h; sourceTree = "<group>"; };
+		186B4CB71C10487C004C81B7 /* LineMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineMath.m; sourceTree = "<group>"; };
+		186B4CB91C104E71004C81B7 /* DrawLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawLineView.h; sourceTree = "<group>"; };
+		186B4CBA1C104E71004C81B7 /* DrawLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawLineView.m; sourceTree = "<group>"; };
+		18D84C8A1C0D42CE003EE5BF /* FanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FanView.h; sourceTree = "<group>"; };
+		18D84C8B1C0D42CE003EE5BF /* FanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FanView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +120,16 @@
 				18423C061C0D2DAD00D7B0E5 /* AppDelegate.m */,
 				18423C081C0D2DAD00D7B0E5 /* ViewController.h */,
 				18423C091C0D2DAD00D7B0E5 /* ViewController.m */,
+				18D84C8A1C0D42CE003EE5BF /* FanView.h */,
+				18D84C8B1C0D42CE003EE5BF /* FanView.m */,
+				18423C351C0D2F6F00D7B0E5 /* UIView+MySet.h */,
+				18423C361C0D2F6F00D7B0E5 /* UIView+MySet.m */,
+				186B4CB31C102F81004C81B7 /* ViewWithVertixView.h */,
+				186B4CB41C102F81004C81B7 /* ViewWithVertixView.m */,
+				186B4CB61C10487C004C81B7 /* LineMath.h */,
+				186B4CB71C10487C004C81B7 /* LineMath.m */,
+				186B4CB91C104E71004C81B7 /* DrawLineView.h */,
+				186B4CBA1C104E71004C81B7 /* DrawLineView.m */,
 				18423C0B1C0D2DAD00D7B0E5 /* Main.storyboard */,
 				18423C0E1C0D2DAD00D7B0E5 /* Assets.xcassets */,
 				18423C101C0D2DAD00D7B0E5 /* LaunchScreen.storyboard */,
@@ -207,6 +232,7 @@
 				TargetAttributes = {
 					18423BFE1C0D2DAD00D7B0E5 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = VT6HKJNGDV;
 					};
 					18423C171C0D2DAE00D7B0E5 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -271,8 +297,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				18423C0A1C0D2DAD00D7B0E5 /* ViewController.m in Sources */,
+				18D84C8C1C0D42CE003EE5BF /* FanView.m in Sources */,
+				186B4CBB1C104E71004C81B7 /* DrawLineView.m in Sources */,
 				18423C071C0D2DAD00D7B0E5 /* AppDelegate.m in Sources */,
 				18423C041C0D2DAD00D7B0E5 /* main.m in Sources */,
+				18423C371C0D2F6F00D7B0E5 /* UIView+MySet.m in Sources */,
+				186B4CB81C10487C004C81B7 /* LineMath.m in Sources */,
+				186B4CB51C102F81004C81B7 /* ViewWithVertixView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,9 +444,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = circleDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuntu.text.circleDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bear.circleDemo1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -424,9 +457,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = circleDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuntu.text.circleDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bear.circleDemo1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -498,6 +533,7 @@
 				18423C2E1C0D2DAE00D7B0E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18423C2F1C0D2DAE00D7B0E5 /* Build configuration list for PBXNativeTarget "circleDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +542,7 @@
 				18423C311C0D2DAE00D7B0E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18423C321C0D2DAE00D7B0E5 /* Build configuration list for PBXNativeTarget "circleDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +551,7 @@
 				18423C341C0D2DAE00D7B0E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

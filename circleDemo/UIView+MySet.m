@@ -1,9 +1,8 @@
 //
 //  UIView+MySet.m
-//  songshu-mall
 //
-//  Created by zmit on 15/5/25.
-//  Copyright (c) 2015年 ZhongMeng. All rights reserved.
+//  Created by bear on 15/5/25.
+//  Copyright (c) 2015年 Bear. All rights reserved.
 //
 
 #import "UIView+MySet.h"

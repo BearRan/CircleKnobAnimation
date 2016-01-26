@@ -1,12 +1,25 @@
 //
 //  UIView+MySet.h
-//  songshu-mall
 //
-//  Created by zmit on 15/5/25.
-//  Copyright (c) 2015年 ZhongMeng. All rights reserved.
+//  Created by bear on 15/5/25.
+//  Copyright (c) 2015年 Bear. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+
+#define SCREEN_WIDTH    [[UIScreen mainScreen] bounds].size.width
+#define SCREEN_HEIGHT   [[UIScreen mainScreen] bounds].size.height
+#define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0f]
+
+#define        fullAngleValue  360.0
+#define        fanCount        10                           //扇页总数
+#define        fanShowCount    8                            //显示的扇页个数
+#define        angleForFan     fullAngleValue / fanCount    //每个扇页夹脚
+#define        startAngleValue (90 - (fullAngleValue - fanShowCount*angleForFan)/2)
+#define        endAngleValue   startAngleValue
+
+#define degreesToRadian(x) (M_PI * x / 180.0)
+#define radiansToDegrees(x) (180.0 * x / M_PI)
 
 typedef enum {
     dir_Horizontal,

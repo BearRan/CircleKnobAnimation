@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+MySet.h"
 
 @interface FanView : UIView
+
+@property (nonatomic, assign) CGFloat   knobValue;
+@property (nonatomic, assign) CGPoint   lightSource_InWindow;
 
 @end

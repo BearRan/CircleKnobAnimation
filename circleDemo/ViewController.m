@@ -174,9 +174,6 @@ static CGFloat lastRadius = 0;
         CGFloat animationTime = countAll * 0.003;
         
         [self changeRadiusWithAnimation:radius lastRadius:lastRadius duration:animationTime];
-        
-        // knob单独的的旋转动画
-        [self transInKnob:radius duration:animationTime];
     }
     else{
         
@@ -252,26 +249,6 @@ static CGFloat lastRadius = 0;
     });
     dispatch_resume(timer);
     
-}
-
-
-//  旋钮动画
-- (void)transInKnob:(CGFloat)angle duration:(CGFloat)duration
-{
-    CABasicAnimation *rotationAnimation;
-    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotationAnimation.fromValue = [NSNumber numberWithFloat:(lastRadius/180.0 - 0) * M_PI];
-    rotationAnimation.toValue = [NSNumber numberWithFloat:angle/180.0 * M_PI];
-
-    rotationAnimation.duration = duration;
-    rotationAnimation.cumulative = YES;
-    rotationAnimation.repeatCount = 1;
-    
-    //默认为YES，执行完动画后从图层上一移除
-    rotationAnimation.removedOnCompletion = NO;
-    //决定当前对象在非active时间段的行为.比如动画开始之前,动画结束之后
-    rotationAnimation.fillMode=kCAFillModeForwards;
-    [knob.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
 @end

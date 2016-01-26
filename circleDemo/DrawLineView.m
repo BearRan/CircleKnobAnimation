@@ -26,17 +26,17 @@
     [super drawRect:rect];
     
     //和光源的连线
-//    [self drawLineWithPoint1:_point1 withPoint2:_point2];
+    [self drawLineWithPoint1:_point_LightSource withPoint2:_point_FinalCenter];
     //和光源连线的延长
-    [self drawLineWithOriginPoint:_point1 withLine:_lineWithLight withLength:-3 needSetShaowPoint:YES];
+    [self drawLineWithOriginPoint:_point_LightSource withLine:_lineWithLight withLength:-3 needSetShaowPoint:YES];
 
     //垂直平分线
-//    [self drawLineWithOriginPoint:_point1 withLine:_line withLength:_length needSetShaowPoint:NO];
+    [self drawLineWithOriginPoint:_point_LightSource withLine:_line withLength:_length needSetShaowPoint:NO];
     //垂直平分线反向延长
     BOOL drawFullLine = YES;
-//    if (drawFullLine) {
-//        [self drawLineWithOriginPoint:_point1 withLine:_line withLength:-_length needSetShaowPoint:NO];
-//    }
+    if (drawFullLine) {
+        [self drawLineWithOriginPoint:_point_LightSource withLine:_line withLength:-_length needSetShaowPoint:NO];
+    }
 }
 
 - (void)drawLineWithPoint1:(CGPoint)point1 withPoint2:(CGPoint)point2
@@ -80,7 +80,7 @@
     CGPoint point2 = CGPointMake(x2, y2);
     
     //绘制线
-//    [self drawLineWithPoint1:point withPoint2:point2];
+    [self drawLineWithPoint1:point withPoint2:point2];
     
     if (needSetShaowPoint) {
         if ([_getDelegate respondsToSelector:@selector(getShadowPoint:tempView:lineView:)]) {
@@ -92,39 +92,39 @@
 
 
 
-//@synthesize lineWithLight = _lineWithLight;
-//- (void)setLineWithLight:(LineMath *)lineWithLight
-//{
-//    _lineWithLight = lineWithLight;
-//    [self setNeedsDisplay];
-//}
-//
-//@synthesize point1 = _point1;
-//- (void)setPoint1:(CGPoint)point1
-//{
-//    _point1 = point1;
-//    [self setNeedsDisplay];
-//}
-//
-//@synthesize point2 = _point2;
-//- (void)setPoint2:(CGPoint)point2
-//{
-//    _point2 = point2;
-//    [self setNeedsDisplay];
-//}
-//
-//@synthesize length = _length;
-//- (void)setLength:(CGFloat)length
-//{
-//    _length = length;
-//    [self setNeedsDisplay];
-//}
-//
-//@synthesize line = _line;
-//- (void)setLine:(LineMath *)line
-//{
-//    _line = line;
-//    [self setNeedsDisplay];
-//}
+@synthesize lineWithLight = _lineWithLight;
+- (void)setLineWithLight:(LineMath *)lineWithLight
+{
+    _lineWithLight = lineWithLight;
+    [self setNeedsDisplay];
+}
+
+@synthesize point_LightSource = _point_LightSource;
+- (void)setpoint_LightSource:(CGPoint)point_LightSource
+{
+    _point_LightSource = point_LightSource;
+    [self setNeedsDisplay];
+}
+
+@synthesize point_FinalCenter = _point_FinalCenter;
+- (void)setPoint_FinalCenter:(CGPoint)point_FinalCenter
+{
+    _point_FinalCenter = point_FinalCenter;
+    [self setNeedsDisplay];
+}
+
+@synthesize length = _length;
+- (void)setLength:(CGFloat)length
+{
+    _length = length;
+    [self setNeedsDisplay];
+}
+
+@synthesize line = _line;
+- (void)setLine:(LineMath *)line
+{
+    _line = line;
+    [self setNeedsDisplay];
+}
 
 @end

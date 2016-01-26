@@ -192,8 +192,8 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     [myDelegate.window addSubview:lineView];
     
     //点与光源的连线
-    lineView.point1 = centerPoint;
-    lineView.point2 = _lightSource_InWindow;
+    lineView.point_LightSource = centerPoint;
+    lineView.point_FinalCenter = _lightSource_InWindow;
     lineView.lineWithLight = line2;
     
     //垂直平分线
@@ -208,6 +208,7 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
 
 - (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithVertixView *)tempView lineView:(DrawLineView *)lineView
 {
+    NSLog(@"-123");
     //绘制阴影
     CGPoint shadowPointFinal = [tempView convertPoint:shadowPoint fromView:self.window];
     UIColor *shadowColor = RGB(169, 159, 146);

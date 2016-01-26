@@ -10,6 +10,7 @@
 
 @implementation LineMath
 
+//根据两点计算直线的表达式的 k, b值
 - (instancetype)initWithPoint1:(CGPoint)point1 withPoint2:(CGPoint)point2
 {
 

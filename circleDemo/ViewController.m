@@ -21,6 +21,7 @@ static CGFloat lastRadius = 0;
     FanView             *fanView;       //  扇形view
     UIView              *controlView;   //  手势控制台view
     CGPoint             lightSource;    //  光源点
+    UIImageView         *sunImgView;    //  太阳view
 }
 @end
 
@@ -29,14 +30,18 @@ static CGFloat lastRadius = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //设置光源
+    //  设置光源
     lightSource = CGPointMake(300, 100);
-    fanView.knobValue = -startAngleValue;//设置起始点
-    fanView.lightSource_InWindow = lightSource;
-    UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    lightView.backgroundColor = [UIColor blackColor];
-    lightView.center = lightSource;
-    [self.view addSubview:lightView];
+    
+    //  设置小太阳
+    sunImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+    sunImgView.image = [UIImage imageNamed:@"Sun"];
+    sunImgView.center = lightSource;
+    [self.view addSubview:sunImgView];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panSunEvent:)];
+    sunImgView.userInteractionEnabled = YES;
+    [sunImgView addGestureRecognizer:panGesture];
     
     self.view.backgroundColor = RGB(235, 235, 235);
     
@@ -121,6 +126,21 @@ static CGFloat lastRadius = 0;
     [knob setTransform:rotate];
 }
 
+
+- (void)panSunEvent:(UIPanGestureRecognizer *)panGesture
+{
+    CGPoint point = [panGesture locationInView:sunImgView];
+    
+    [sunImgView setMyCenterX:sunImgView.center.x + point.x - CGRectGetWidth(sunImgView.frame)/2];
+    [sunImgView setmyCenterY:sunImgView.center.y + point.y - CGRectGetHeight(sunImgView.frame)/2];
+    
+    lightSource = sunImgView.center;
+//    fanView.lightSource_InWindow = lightSource;
+    [knobCircle2 calucateAngleWithSourcePoint:lightSource parentView:self.view];
+    [knobCircle1 calucateAngleWithSourcePoint:lightSource parentView:self.view];
+    
+    
+}
 
 - (void)tapEvent:(UIGestureRecognizer *)tapGesture
 {

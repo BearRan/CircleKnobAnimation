@@ -13,6 +13,10 @@
 #import "LineViewWithVerticalAssist.h"
 
 @interface ViewWithAutoShadow ()<getShaowPoint>
+{
+    //  绘制辅助线和阴影的view
+    LineViewWithVerticalAssist *drawLineView;
+}
 
 @end
 
@@ -91,26 +95,27 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     //和光源的连线
     LineMath *line2 = [[LineMath alloc] initWithPoint1:centerPoint withPoint2:sourcePoint];
     
-    
-    AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
-    LineViewWithVerticalAssist *lineView = [[LineViewWithVerticalAssist alloc] initWithFrame:myDelegate.window.bounds];
-    lineView.backgroundColor = [UIColor clearColor];
-    lineView.userInteractionEnabled = NO;
-    [parentView addSubview:lineView];
-    [parentView bringSubviewToFront:lineView];
+    if (!drawLineView) {
+        AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
+        drawLineView = [[LineViewWithVerticalAssist alloc] initWithFrame:myDelegate.window.bounds];
+        drawLineView.backgroundColor = [UIColor clearColor];
+        drawLineView.userInteractionEnabled = NO;
+        [parentView addSubview:drawLineView];
+        [parentView bringSubviewToFront:drawLineView];
+    }
     
     //点与光源的连线
-    lineView.point_LightSource = sourcePoint;
-    lineView.point_FinalCenter = centerPoint;
-    lineView.line_LightToFinal = line2;
+    drawLineView.point_LightSource = sourcePoint;
+    drawLineView.point_FinalCenter = centerPoint;
+    drawLineView.line_LightToFinal = line2;
     
     //垂直平分线
-    lineView.line_PerBise = line1;
-    lineView.length_PerBise = 25;
+    drawLineView.line_PerBise = line1;
+    drawLineView.length_PerBise = 25;
     
-    lineView.perBiseView_Base = self;
-    lineView.getDelegate = self;
-    [lineView setNeedsDisplay];
+    drawLineView.perBiseView_Base = self;
+    drawLineView.getDelegate = self;
+    [drawLineView setNeedsDisplay];
 }
 
 - (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithAutoShadow *)tempView

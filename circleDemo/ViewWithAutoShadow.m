@@ -84,8 +84,8 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     [parentView bringSubviewToFront:lineView];
     
     //点与光源的连线
-    lineView.point_LightSource = centerPoint;
-    lineView.point_FinalCenter = sourcePoint;
+    lineView.point_LightSource = sourcePoint;
+    lineView.point_FinalCenter = centerPoint;
     lineView.line_LightToFinal = line2;
     
     //垂直平分线

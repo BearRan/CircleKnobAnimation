@@ -26,16 +26,16 @@
     [super drawRect:rect];
     
     //和光源的连线
-    [self drawLineWithPoint1:_point_LightSource withPoint2:_point_FinalCenter];
+    [self drawLineWithPoint1:_point_FinalCenter withPoint2:_point_LightSource];
     //和光源连线的反向延长线
-    [self drawLineWithOriginPoint:_point_LightSource withLine:_line_LightToFinal withLength:-3 needSetShaowPoint:YES];
+    [self drawLineWithOriginPoint:_point_FinalCenter withLine:_line_LightToFinal withLength:-3 needSetShaowPoint:YES];
 
     //垂直平分线
-    [self drawLineWithOriginPoint:_point_LightSource withLine:_line_PerBise withLength:_length_PerBise needSetShaowPoint:NO];
+    [self drawLineWithOriginPoint:_point_FinalCenter withLine:_line_PerBise withLength:_length_PerBise needSetShaowPoint:NO];
     //垂直平分线反向延长线
     BOOL drawFullLine = YES;
     if (drawFullLine) {
-        [self drawLineWithOriginPoint:_point_LightSource withLine:_line_PerBise withLength:-_length_PerBise needSetShaowPoint:NO];
+        [self drawLineWithOriginPoint:_point_FinalCenter withLine:_line_PerBise withLength:-_length_PerBise needSetShaowPoint:NO];
     }
 }
 
@@ -106,17 +106,17 @@
     [self setNeedsDisplay];
 }
 
+@synthesize point_FinalCenter = _point_FinalCenter;
+- (void)setpoint_FinalCenter:(CGPoint)point_FinalCenter
+{
+    _point_FinalCenter = point_FinalCenter;
+    [self setNeedsDisplay];
+}
+
 @synthesize point_LightSource = _point_LightSource;
 - (void)setpoint_LightSource:(CGPoint)point_LightSource
 {
     _point_LightSource = point_LightSource;
-    [self setNeedsDisplay];
-}
-
-@synthesize point_FinalCenter = _point_FinalCenter;
-- (void)setPoint_FinalCenter:(CGPoint)point_FinalCenter
-{
-    _point_FinalCenter = point_FinalCenter;
     [self setNeedsDisplay];
 }
 

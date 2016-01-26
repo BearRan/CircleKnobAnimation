@@ -8,15 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-//绘制出view的四个顶点
+/**
+ ** 功能
+ ** 1，绘制四个顶点，中心点，垂直平分线的view
+ ** 根据光源所在位置绘制出仿真的阴影
+ **/
 @interface ViewWithVertixView : UIView
 
-@property (strong, nonatomic) UIView *point_V1;
-@property (strong, nonatomic) UIView *point_V2;
-@property (strong, nonatomic) UIView *point_V3;
-@property (strong, nonatomic) UIView *point_V4;
-@property (strong, nonatomic) UIView *centerPointV;
+@property (strong, nonatomic) UIView    *point_V1;
+@property (strong, nonatomic) UIView    *point_V2;
+@property (strong, nonatomic) UIView    *point_V3;
+@property (strong, nonatomic) UIView    *point_V4;
+@property (strong, nonatomic) UIView    *centerPointV;
+@property (assign, nonatomic) BOOL      showAssistPoint;    //  是否显示辅助点
 
 - (instancetype)initWithFrame:(CGRect)frame;
+
+- (void)calucateAngleWithSourcePoint:(CGPoint)sourcePoint;
 
 @end

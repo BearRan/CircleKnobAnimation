@@ -7,23 +7,25 @@
 //
 
 #import "FanView.h"
-#import "AppDelegate.h"
-#import "ViewWithVertixView.h"
-#import "LineMath.h"
 #import "DrawLineView.h"
+#import "UIView+MySet.h"
 
-static CGFloat  lineWidth           = 10.0f;
+static CGFloat  lineWidth = 10.0f;
 
-@interface FanView () <getShaowPoint>
+@interface FanView ()
 {
+    //扇环形进度条 背景
     CGContextRef    contextBack;
     UIBezierPath    *bezierPathBack;
     
+    //扇环形进度条 前景
     CGContextRef    contextFore;
     UIBezierPath    *bezierPathFore;
 }
 
 @end
+
+
 
 @implementation FanView
 
@@ -54,6 +56,8 @@ static CGFloat  lineWidth           = 10.0f;
       strokeColor:[UIColor colorWithRed:174/255.0 green:0/255.0 blue:0/255.0 alpha:1.0f]];
 }
 
+
+
 /***********************
           角度说明
  
@@ -61,9 +65,10 @@ static CGFloat  lineWidth           = 10.0f;
             |
             |
             |
-0度  ----------------  180度
-－30或者330
             |
+0度  ----------------  180度
+            |
+－30或者330  |
             |
             |
             270 度
@@ -80,6 +85,7 @@ static CGFloat  lineWidth           = 10.0f;
     int             gapCount        = fanShowCount - 1;                         //间隙个数
     CGFloat         gapWidth        = 5;                                        //间隙距离
     
+    //  计算需要绘制的角度（角度制）
     knobAngle = knobAngle < -startAngleValue ? -startAngleValue : knobAngle;
     knobAngle = knobAngle > 180 + endAngleValue ? 180 + endAngleValue : knobAngle;
 
@@ -100,7 +106,7 @@ static CGFloat  lineWidth           = 10.0f;
     CGContextSetLineDash(context, 0, lengths, 2);
     CGContextDrawPath(context, kCGPathFillStroke);//最后一个参数是填充类型
     
-    //  绘制分割块
+    //  绘制小方格view
     static BOOL     drawBlock = NO;
     if (!drawBlock) {
         drawBlock = YES;
@@ -111,102 +117,28 @@ static CGFloat  lineWidth           = 10.0f;
             CGFloat block_x     = CGRectGetWidth(frame) / 2 - radius - blockWidth/2;
             CGFloat block_y     = CGRectGetHeight(frame) / 2;
             
-            //角度修正
+            //  角度修正
             if (blockHeight > gapWidth) {
                 block_y = block_y - blockHeight/2;
             }else{
                 block_y = block_y + (gapWidth - blockHeight)/2;
             }
             
+            //  方格view 可辅助绘制垂直平分线
             ViewWithVertixView *viewBlock = [[ViewWithVertixView alloc] initWithFrame:CGRectMake(block_x, block_y, blockWidth, blockHeight)];
+            viewBlock.showAssistPoint = YES;
             viewBlock.backgroundColor = [UIColor colorWithRed:248/255.0 green:238/255.0 blue:237/255.0 alpha:1.0f];
             [self addSubview:viewBlock];
             
-            //根据锚点旋转
+            //  根据锚点旋转
             CGFloat blockAngle = (180 + startAngleValue + endAngleValue)/fanShowCount*i - startAngleValue;
             CGAffineTransform rotate = GetCGAffineTransformRotateAroundPoint1(viewBlock.center.x, viewBlock.center.y, CGRectGetWidth(frame)/2, CGRectGetHeight(frame)/2, blockAngle/180.0 * M_PI);
             [viewBlock setTransform:rotate];
             
-            [self calucateAngle:viewBlock];
+            [viewBlock calucateAngleWithSourcePoint:_lightSource_InWindow];
         }
     }
 }
-
-CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
-{
-    return CGPointMake((point1.x + point2.x)/2, (point1.y + point2.y)/2);
-}
-
-- (void)calucateAngle:(ViewWithVertixView *)tempView
-{
-    CGPoint pointA = [self convertPoint:tempView.point_V1.center fromView:tempView];
-    CGPoint pointA1 = [self convertPoint:pointA toView:nil];
-    
-    CGPoint pointB = [self convertPoint:tempView.point_V2.center fromView:tempView];
-    CGPoint pointB1 = [self convertPoint:pointB toView:nil];
-    
-    CGPoint pointC = [self convertPoint:tempView.point_V3.center fromView:tempView];
-    CGPoint pointC1 = [self convertPoint:pointC toView:nil];
-    
-    CGPoint pointD = [self convertPoint:tempView.point_V4.center fromView:tempView];
-    CGPoint pointD1 = [self convertPoint:pointD toView:nil];
-    
-    
-    CGPoint centerPoint = getCenterPoint(pointA1, pointC1);
-    CGPoint sidePoint = getCenterPoint(pointA1, pointB1);   //边上的垂直平分线的交点
-    
-    //垂直平分线
-    LineMath *line1 = [[LineMath alloc] initWithPoint1:centerPoint withPoint2:sidePoint];
-    //和光源的连线
-    LineMath *line2 = [[LineMath alloc] initWithPoint1:centerPoint withPoint2:_lightSource_InWindow];
-    
-    CGFloat tanA = ABS( (line2.k - line1.k) / (1 + line1.k*line2.k) );
-    CGFloat calucateAngle = atan(tanA);
-    CGFloat radius = radiansToDegrees(calucateAngle);
-    
-    NSLog(@"calucateAngle:%f", radius);
-    AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
-    DrawLineView *lineView = [[DrawLineView alloc] initWithFrame:myDelegate.window.bounds];
-    lineView.backgroundColor = [UIColor clearColor];
-    lineView.userInteractionEnabled = NO;
-    [myDelegate.window addSubview:lineView];
-    
-    //点与光源的连线
-    lineView.point_LightSource = centerPoint;
-    lineView.point_FinalCenter = _lightSource_InWindow;
-    lineView.line_LightToFinal = line2;
-    
-    //垂直平分线
-    lineView.line_PerBise = line1;
-    lineView.length_PerBise = 25;
-    
-    lineView.perBiseView_Base = tempView;
-    lineView.getDelegate = self;
-    [lineView setNeedsDisplay];
-}
-
-- (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithVertixView *)tempView
-{
-    //绘制阴影
-    CGPoint shadowPointFinal = [tempView convertPoint:shadowPoint fromView:self.window];
-    UIColor *shadowColor = RGB(169, 159, 146);
-    
-    tempView.layer.shadowColor = shadowColor.CGColor;
-    tempView.layer.shadowOffset = CGSizeMake(shadowPointFinal.x - CGRectGetWidth(tempView.layer.bounds)/2, shadowPointFinal.y - CGRectGetHeight(tempView.layer.bounds)/2);
-    tempView.layer.shadowOpacity = 1.0f;
-    tempView.layer.shadowRadius = 2.0f;
-}
-
-- (void)drawPointInWindow:(CGPoint)point
-{
-    AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
-    
-    UIView *pointView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 2, 2)];
-    pointView.backgroundColor = [UIColor blackColor];
-    pointView.center = point;
-    [myDelegate.window addSubview:pointView];
-}
-
 
 //根据某个锚点旋转
 CGAffineTransform GetCGAffineTransformRotateAroundPoint1(float centerX, float centerY, float x ,float y ,float angle)

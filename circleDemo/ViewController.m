@@ -19,7 +19,7 @@ static CGFloat lastRadius = 0;
     UIView  *knobCircle2;   //  旋钮外面大的圆
     FanView *fanView;       //  扇形view
     UIView  *controlView;   //  手势控制台view
-    CGPoint lightSource;   //  光源点
+    CGPoint lightSource;    //  光源点
 }
 @end
 
@@ -33,14 +33,28 @@ static CGFloat lastRadius = 0;
     [self initSetFanView];
 }
 
-//  装载阴影效果
-- (void)loadShadow:(UIView *)myView
+
+#pragma mark - 设置外围的扇环形
+- (void)initSetFanView
 {
-    myView.layer.masksToBounds = NO;
-    myView.layer.shadowColor = RGB(169, 159, 146).CGColor;
-    myView.layer.shadowOffset = CGSizeMake(-10, 2);
-    myView.layer.shadowOpacity = 0.9f;
+    CGFloat delta_distance = 26;
+    
+    fanView = [[FanView alloc] initWithFrame:CGRectMake(0, 0, knob_width + delta_distance * 2, knob_width + delta_distance * 2)];
+    fanView.center = knob.center;
+    fanView.backgroundColor = [UIColor clearColor];
+    fanView.userInteractionEnabled = NO;
+    [self.view addSubview:fanView];
+    
+    //设置光源
+    lightSource = CGPointMake(300, 100);
+    fanView.knobValue = -startAngleValue;//设置起始点
+    fanView.lightSource_InWindow = lightSource;
+    UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    lightView.backgroundColor = [UIColor blackColor];
+    lightView.center = lightSource;
+    [self.view addSubview:lightView];
 }
+
 
 #pragma mark - 设置中间的旋钮
 - (void)initSetKnobView
@@ -78,7 +92,8 @@ static CGFloat lastRadius = 0;
     knob.backgroundColor = [UIColor clearColor];
     [self.view addSubview:knob];
     
-    //  参考线
+    
+    //  参考线开关
     BOOL showReferenceLine = NO;
     if (showReferenceLine) {
         int seperateLineCount = fanCount / 2;
@@ -97,6 +112,7 @@ static CGFloat lastRadius = 0;
         }
     }
     
+    
     //  手势view
     controlView = [[UIView alloc] initWithFrame:knob.frame];
     controlView.layer.cornerRadius = knob.layer.cornerRadius;
@@ -109,6 +125,7 @@ static CGFloat lastRadius = 0;
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(tapEvent:)];
     [controlView addGestureRecognizer:panGesture];
     
+    
     //  指示点
     CGFloat pointWidth = 15.0f;
     UIView *indicatorPoint = [[UIView alloc] initWithFrame:CGRectMake(10, (knob_width - pointWidth)/2, pointWidth, pointWidth)];
@@ -119,6 +136,7 @@ static CGFloat lastRadius = 0;
     CGAffineTransform rotate = CGAffineTransformMakeRotation(-startAngleValue/180.0 * M_PI);
     [knob setTransform:rotate];
 }
+
 
 - (void)tapEvent:(UIGestureRecognizer *)tapGesture
 {
@@ -132,6 +150,8 @@ static CGFloat lastRadius = 0;
     }
 }
 
+
+//  转动到某一角度，并且是否执行动画
 - (void)pointConvert:(CGPoint)point closeAnimation:(BOOL)closeAnimation
 {
     CGFloat x0 = CGRectGetWidth(controlView.frame)/2;
@@ -168,6 +188,7 @@ static CGFloat lastRadius = 0;
     radius = radius <= -startAngleValue ? -startAngleValue : radius;
     radius = radius >= 180 + endAngleValue ? 180 + endAngleValue : radius;
     
+    //  显示动画
     if (closeAnimation == NO) {
         
         CGFloat countAll = ABS(radius - lastRadius);
@@ -175,6 +196,8 @@ static CGFloat lastRadius = 0;
         
         [self changeRadiusWithAnimation:radius lastRadius:lastRadius duration:animationTime];
     }
+    
+    //  不显示动画
     else{
         
         [knob.layer removeAllAnimations];
@@ -184,32 +207,10 @@ static CGFloat lastRadius = 0;
     }
     
     lastRadius = radius;
-
 }
 
 
-#pragma mark - 设置外围的扇环形
-- (void)initSetFanView
-{
-    CGFloat delta_distance = 26;
-    
-    fanView = [[FanView alloc] initWithFrame:CGRectMake(0, 0, knob_width + delta_distance * 2, knob_width + delta_distance * 2)];
-    fanView.center = knob.center;
-    fanView.backgroundColor = [UIColor clearColor];
-    fanView.userInteractionEnabled = NO;
-    [self.view addSubview:fanView];
-    
-    //设置光源
-    lightSource = CGPointMake(300, 100);
-    fanView.knobValue = -startAngleValue;//设置起始点
-    fanView.lightSource_InWindow = lightSource;
-    UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    lightView.backgroundColor = [UIColor blackColor];
-    lightView.center = lightSource;
-    [self.view addSubview:lightView];
-}
-
-
+//  执行动画
 - (void)changeRadiusWithAnimation:(CGFloat)radius lastRadius:(CGFloat)lastRadius duration:(CGFloat)duration
 {
     CGFloat countAll = ABS(radius - lastRadius);
@@ -232,15 +233,16 @@ static CGFloat lastRadius = 0;
                 i ++;
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     
+                    //  扇环进度条动画
                     CGFloat anglePer = countAll/animateCount * i;
                     int k = radius > lastRadius ? anglePer : -anglePer;
                     CGFloat needValue = lastRadius + k;
                     fanView.knobValue = needValue;
                     
-                    //该方法会重新调用drawRect方法
+                    //  该方法会重新调用drawRect方法
                     [fanView setNeedsDisplay];
                     
-                    
+                    //  旋钮转动
                     knob.transform = CGAffineTransformMakeRotation((needValue/180.0 - 0) * M_PI);
                 });
             }

@@ -9,6 +9,7 @@
 #import "FanView.h"
 #import "LineViewWithVerticalAssist.h"
 #import "UIView+MySet.h"
+#import "AppDelegate.h"
 
 static CGFloat  lineWidth = 10.0f;
 
@@ -135,7 +136,8 @@ static CGFloat  lineWidth = 10.0f;
             CGAffineTransform rotate = GetCGAffineTransformRotateAroundPoint1(viewBlock.center.x, viewBlock.center.y, CGRectGetWidth(frame)/2, CGRectGetHeight(frame)/2, blockAngle/180.0 * M_PI);
             [viewBlock setTransform:rotate];
             
-            [viewBlock calucateAngleWithSourcePoint:_lightSource_InWindow];
+            AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
+            [viewBlock calucateAngleWithSourcePoint:_lightSource_InWindow parentView:myDelegate.window];
         }
     }
 }

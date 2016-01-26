@@ -15,12 +15,12 @@ static CGFloat knob_width = 150;
 static CGFloat lastRadius = 0;
 
 @interface ViewController (){
-    UIView  *knob;          //  旋钮view
-    UIView  *knobCircle1;   //  里面的小的旋钮
-    UIView  *knobCircle2;   //  旋钮外面大的圆
-    FanView *fanView;       //  扇形view
-    UIView  *controlView;   //  手势控制台view
-    CGPoint lightSource;    //  光源点
+    UIView              *knob;          //  旋钮view
+    ViewWithAutoShadow  *knobCircle1;   //  里面的小的旋钮
+    ViewWithAutoShadow  *knobCircle2;   //  旋钮外面大的圆
+    FanView             *fanView;       //  扇形view
+    UIView              *controlView;   //  手势控制台view
+    CGPoint             lightSource;    //  光源点
 }
 @end
 
@@ -29,9 +29,22 @@ static CGFloat lastRadius = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //设置光源
+    lightSource = CGPointMake(300, 100);
+    fanView.knobValue = -startAngleValue;//设置起始点
+    fanView.lightSource_InWindow = lightSource;
+    UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    lightView.backgroundColor = [UIColor blackColor];
+    lightView.center = lightSource;
+    [self.view addSubview:lightView];
+    
     self.view.backgroundColor = RGB(235, 235, 235);
+    
     [self initSetKnobView];
     [self initSetFanView];
+    
+    [knobCircle2 calucateAngleWithSourcePoint:lightSource parentView:self.view];
+    [knobCircle1 calucateAngleWithSourcePoint:lightSource parentView:self.view];
 }
 
 
@@ -39,10 +52,11 @@ static CGFloat lastRadius = 0;
 - (void)initSetKnobView
 {
     //  外面大的旋钮底座
-    knobCircle2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, knob_width + 15, knob_width + 15)];
+    knobCircle2 = [[ViewWithAutoShadow alloc] initWithFrame:CGRectMake(0, 0, knob_width + 15, knob_width + 15)];
     [knobCircle2 setCenter:CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)];
     knobCircle2.layer.cornerRadius = CGRectGetWidth(knobCircle2.frame) / 2;
     knobCircle2.backgroundColor = RGB(215, 215, 215);
+    knobCircle2.showAssistPoint = YES;
     [self.view addSubview:knobCircle2];
     
 //    knobCircle2.layer.shadowColor = RGB(169, 159, 146).CGColor;
@@ -52,11 +66,14 @@ static CGFloat lastRadius = 0;
     
     
     //  里面的旋钮
-    knobCircle1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, knob_width, knob_width)];
+    knobCircle1 = [[ViewWithAutoShadow alloc] initWithFrame:CGRectMake(0, 0, knob_width, knob_width)];
     [knobCircle1 setCenter:CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)];
     knobCircle1.layer.cornerRadius = knob_width / 2;
     knobCircle1.backgroundColor = RGB(225, 225, 225);
+    knobCircle1.showAssistPoint = YES;
     [self.view addSubview:knobCircle1];
+    
+    
     
 //    knobCircle1.layer.shadowColor = RGB(169, 159, 146).CGColor;
 //    knobCircle1.layer.shadowOffset = CGSizeMake(-4, 6);
@@ -245,14 +262,8 @@ static CGFloat lastRadius = 0;
     fanView.userInteractionEnabled = NO;
     [self.view addSubview:fanView];
     
-    //设置光源
-    lightSource = CGPointMake(300, 100);
     fanView.knobValue = -startAngleValue;//设置起始点
     fanView.lightSource_InWindow = lightSource;
-    UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    lightView.backgroundColor = [UIColor blackColor];
-    lightView.center = lightSource;
-    [self.view addSubview:lightView];
 }
 
 

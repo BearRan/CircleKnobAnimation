@@ -24,6 +24,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-- (void)calucateAngleWithSourcePoint:(CGPoint)sourcePoint;
+- (void)calucateAngleWithSourcePoint:(CGPoint)sourcePoint parentView:(UIView *)parentView;
 
 @end

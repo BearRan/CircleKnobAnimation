@@ -49,7 +49,7 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     return CGPointMake((point1.x + point2.x)/2, (point1.y + point2.y)/2);
 }
 
-- (void)calucateAngleWithSourcePoint:(CGPoint)sourcePoint
+- (void)calucateAngleWithSourcePoint:(CGPoint)sourcePoint parentView:(UIView *)parentView
 {
     CGPoint pointA = [self convertPoint:self.point_V1.center fromView:self];
     CGPoint pointA1 = [self convertPoint:pointA toView:nil];
@@ -80,7 +80,8 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     LineViewWithVerticalAssist *lineView = [[LineViewWithVerticalAssist alloc] initWithFrame:myDelegate.window.bounds];
     lineView.backgroundColor = [UIColor clearColor];
     lineView.userInteractionEnabled = NO;
-    [myDelegate.window addSubview:lineView];
+    [parentView addSubview:lineView];
+    [parentView bringSubviewToFront:lineView];
     
     //点与光源的连线
     lineView.point_LightSource = centerPoint;

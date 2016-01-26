@@ -127,26 +127,6 @@ static CGFloat  lineWidth           = 10.0f;
             CGAffineTransform rotate = GetCGAffineTransformRotateAroundPoint1(viewBlock.center.x, viewBlock.center.y, CGRectGetWidth(frame)/2, CGRectGetHeight(frame)/2, blockAngle/180.0 * M_PI);
             [viewBlock setTransform:rotate];
             
-            
-            CGPoint pointA = [self convertPoint:viewBlock.point1.center fromView:viewBlock];
-            CGPoint pointA1 = [self convertPoint:pointA toView:nil];
-            
-            CGPoint pointB = [self convertPoint:viewBlock.point2.center fromView:viewBlock];
-            CGPoint pointB1 = [self convertPoint:pointB toView:nil];
-            
-            CGPoint pointC = [self convertPoint:viewBlock.point3.center fromView:viewBlock];
-            CGPoint pointC1 = [self convertPoint:pointC toView:nil];
-            
-            CGPoint pointD = [self convertPoint:viewBlock.point4.center fromView:viewBlock];
-            CGPoint pointD1 = [self convertPoint:pointD toView:nil];
-            
-            //绘制blockView四周的测试点和中心点
-//            [self drawPointInWindow:pointA1];
-//            [self drawPointInWindow:pointB1];
-//            [self drawPointInWindow:pointC1];
-//            [self drawPointInWindow:pointD1];
-//            
-//            [self drawPointInWindow:getCenterPoint(pointA1, pointC1)];
             [self calucateAngle:viewBlock];
         }
     }
@@ -159,16 +139,16 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
 
 - (void)calucateAngle:(ViewWithVertixView *)tempView
 {
-    CGPoint pointA = [self convertPoint:tempView.point1.center fromView:tempView];
+    CGPoint pointA = [self convertPoint:tempView.point_V1.center fromView:tempView];
     CGPoint pointA1 = [self convertPoint:pointA toView:nil];
     
-    CGPoint pointB = [self convertPoint:tempView.point2.center fromView:tempView];
+    CGPoint pointB = [self convertPoint:tempView.point_V2.center fromView:tempView];
     CGPoint pointB1 = [self convertPoint:pointB toView:nil];
     
-    CGPoint pointC = [self convertPoint:tempView.point3.center fromView:tempView];
+    CGPoint pointC = [self convertPoint:tempView.point_V3.center fromView:tempView];
     CGPoint pointC1 = [self convertPoint:pointC toView:nil];
     
-    CGPoint pointD = [self convertPoint:tempView.point4.center fromView:tempView];
+    CGPoint pointD = [self convertPoint:tempView.point_V4.center fromView:tempView];
     CGPoint pointD1 = [self convertPoint:pointD toView:nil];
     
     
@@ -194,21 +174,19 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     //点与光源的连线
     lineView.point_LightSource = centerPoint;
     lineView.point_FinalCenter = _lightSource_InWindow;
-    lineView.lineWithLight = line2;
+    lineView.line_LightToFinal = line2;
     
     //垂直平分线
-    lineView.line = line1;
-    lineView.length = 25;
+    lineView.line_PerBise = line1;
+    lineView.length_PerBise = 25;
     
-    lineView.tempView1 = tempView;
-    lineView.lineView = lineView;
+    lineView.perBiseView_Base = tempView;
     lineView.getDelegate = self;
     [lineView setNeedsDisplay];
 }
 
-- (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithVertixView *)tempView lineView:(DrawLineView *)lineView
+- (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithVertixView *)tempView
 {
-    NSLog(@"-123");
     //绘制阴影
     CGPoint shadowPointFinal = [tempView convertPoint:shadowPoint fromView:self.window];
     UIColor *shadowColor = RGB(169, 159, 146);
@@ -247,48 +225,6 @@ CGAffineTransform GetCGAffineTransformRotateAroundPoint1(float centerX, float ce
 {
     _knobValue = knobValue;
     [self setNeedsDisplay];
-}
-
-
-
-
-
-
-
-
-
-
-- (void)test1
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    /*画扇形和椭圆*/
-    //画扇形，也就画圆，只不过是设置角度的大小，形成一个扇形
-    UIColor *aColor = [UIColor colorWithRed:0 green:1 blue:1 alpha:1];
-    CGContextSetFillColorWithColor(context, aColor.CGColor);//填充颜色
-    //以10为半径围绕圆心画指定角度扇形
-    CGContextMoveToPoint(context, 160, 180);
-    CGContextAddArc(context, 160, 180, 30,  -60 * M_PI / 180, -120 * M_PI / 180, 1);
-    CGContextClosePath(context);
-    CGContextDrawPath(context, kCGPathFillStroke); //绘制路径
-}
-
-//通过layer绘制圆环
-- (void)test2
-{
-    CAShapeLayer *frontLayer;
-    
-    frontLayer = [CAShapeLayer layer];
-    frontLayer.fillColor = [UIColor orangeColor].CGColor;
-    frontLayer.frame = self.bounds;
-    frontLayer.strokeColor = [UIColor redColor].CGColor;
-    frontLayer.lineWidth = 10.0f;
-    [self.layer addSublayer:frontLayer];
-    
-    CGFloat angleForOne = M_PI / 180.0f;
-    
-    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:self.center radius:CGRectGetWidth(self.bounds)/2.0 startAngle:0 endAngle:angleForOne * 180 clockwise:YES];
-    frontLayer.path = bezierPath.CGPath;
 }
 
 @end

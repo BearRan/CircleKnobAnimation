@@ -10,6 +10,8 @@
 
 @implementation ViewWithVertixView
 
+static CGFloat pointWidth = 2.0f;
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (!self) {
@@ -18,23 +20,33 @@
     
     self = [super initWithFrame:frame];
     
-    CGFloat pointWidth = 0;
+    _point_V1 = [[UIView alloc] initWithFrame:CGRectMake(- pointWidth/2, - pointWidth/2, pointWidth, pointWidth)];
+    [self setPointViewProperty:_point_V1];
+    [self addSubview:_point_V1];
     
-    _point1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, pointWidth, pointWidth)];
-    [self addSubview:_point1];
-    _point2 = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width, 0, pointWidth, pointWidth)];
-    [self addSubview:_point2];
-    _point3 = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width, frame.size.height, pointWidth, pointWidth)];
-    [self addSubview:_point3];
-    _point4 = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height, pointWidth, pointWidth)];
-    [self addSubview:_point4];
+    _point_V2 = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width - pointWidth/2, 0 - pointWidth/2, pointWidth, pointWidth)];
+    [self setPointViewProperty:_point_V2];
+    [self addSubview:_point_V2];
     
-//    _point1.backgroundColor = [UIColor blackColor];
-//    _point2.backgroundColor = [UIColor blackColor];
-//    _point3.backgroundColor = [UIColor blackColor];
-//    _point4.backgroundColor = [UIColor blackColor];
+    _point_V3 = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width - pointWidth/2, frame.size.height - pointWidth/2, pointWidth, pointWidth)];
+    [self setPointViewProperty:_point_V3];
+    [self addSubview:_point_V3];
+    
+    _point_V4 = [[UIView alloc] initWithFrame:CGRectMake(0 - pointWidth/2, frame.size.height - pointWidth/2, pointWidth, pointWidth)];
+    [self setPointViewProperty:_point_V4];
+    [self addSubview:_point_V4];
+    
+    _centerPointV = [[UIView alloc] initWithFrame:CGRectMake((frame.size.width - pointWidth)/2, (frame.size.height - pointWidth)/2, pointWidth, pointWidth)];
+    [self setPointViewProperty:_centerPointV];
+    [self addSubview:_centerPointV];
     
     return self;
+}
+
+- (void)setPointViewProperty:(UIView *)pointV
+{
+    pointV.backgroundColor = [UIColor blackColor];
+    pointV.layer.cornerRadius = pointWidth/2.0f;
 }
 
 @end

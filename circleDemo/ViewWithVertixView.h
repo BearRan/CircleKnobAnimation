@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+//绘制出view的四个顶点
 @interface ViewWithVertixView : UIView
 
-@property (strong, nonatomic) UIView *point1;
-@property (strong, nonatomic) UIView *point2;
-@property (strong, nonatomic) UIView *point3;
-@property (strong, nonatomic) UIView *point4;
+@property (strong, nonatomic) UIView *point_V1;
+@property (strong, nonatomic) UIView *point_V2;
+@property (strong, nonatomic) UIView *point_V3;
+@property (strong, nonatomic) UIView *point_V4;
+@property (strong, nonatomic) UIView *centerPointV;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 

@@ -7,7 +7,7 @@
 //
 
 #import "FanView.h"
-#import "DrawLineView.h"
+#import "LineViewWithVerticalAssist.h"
 #import "UIView+MySet.h"
 
 static CGFloat  lineWidth = 10.0f;
@@ -106,8 +106,8 @@ static CGFloat  lineWidth = 10.0f;
     CGContextSetLineDash(context, 0, lengths, 2);
     CGContextDrawPath(context, kCGPathFillStroke);//最后一个参数是填充类型
     
-    //  绘制小方格view
-    static BOOL     drawBlock = NO;
+    //  绘制小方格view（并且只绘制一次）
+    static BOOL drawBlock = NO;
     if (!drawBlock) {
         drawBlock = YES;
 	
@@ -125,7 +125,7 @@ static CGFloat  lineWidth = 10.0f;
             }
             
             //  方格view 可辅助绘制垂直平分线
-            ViewWithVertixView *viewBlock = [[ViewWithVertixView alloc] initWithFrame:CGRectMake(block_x, block_y, blockWidth, blockHeight)];
+            ViewWithAutoShadow *viewBlock = [[ViewWithAutoShadow alloc] initWithFrame:CGRectMake(block_x, block_y, blockWidth, blockHeight)];
             viewBlock.showAssistPoint = YES;
             viewBlock.backgroundColor = [UIColor colorWithRed:248/255.0 green:238/255.0 blue:237/255.0 alpha:1.0f];
             [self addSubview:viewBlock];

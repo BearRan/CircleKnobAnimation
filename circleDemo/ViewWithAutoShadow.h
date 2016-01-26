@@ -1,5 +1,5 @@
 //
-//  ViewWithVertixView.h
+//  ViewWithAutoShadow.h
 //  circleDemo
 //
 //  Created by apple on 15/12/3.
@@ -13,7 +13,7 @@
  ** 1，绘制四个顶点，中心点，垂直平分线的view
  ** 根据光源所在位置绘制出仿真的阴影
  **/
-@interface ViewWithVertixView : UIView
+@interface ViewWithAutoShadow : UIView
 
 @property (strong, nonatomic) UIView    *point_V1;
 @property (strong, nonatomic) UIView    *point_V2;

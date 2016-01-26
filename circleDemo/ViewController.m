@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "UIView+MySet.h"
 #import "FanView.h"
+#import "ViewWithAutoShadow.h"
 
 static CGFloat knob_width = 150;
 static CGFloat lastRadius = 0;
@@ -34,29 +35,7 @@ static CGFloat lastRadius = 0;
 }
 
 
-#pragma mark - 设置外围的扇环形
-- (void)initSetFanView
-{
-    CGFloat delta_distance = 26;
-    
-    fanView = [[FanView alloc] initWithFrame:CGRectMake(0, 0, knob_width + delta_distance * 2, knob_width + delta_distance * 2)];
-    fanView.center = knob.center;
-    fanView.backgroundColor = [UIColor clearColor];
-    fanView.userInteractionEnabled = NO;
-    [self.view addSubview:fanView];
-    
-    //设置光源
-    lightSource = CGPointMake(300, 100);
-    fanView.knobValue = -startAngleValue;//设置起始点
-    fanView.lightSource_InWindow = lightSource;
-    UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    lightView.backgroundColor = [UIColor blackColor];
-    lightView.center = lightSource;
-    [self.view addSubview:lightView];
-}
-
-
-#pragma mark - 设置中间的旋钮
+#pragma mark - 设置中间的旋钮和底座
 - (void)initSetKnobView
 {
     //  外面大的旋钮底座
@@ -66,10 +45,10 @@ static CGFloat lastRadius = 0;
     knobCircle2.backgroundColor = RGB(215, 215, 215);
     [self.view addSubview:knobCircle2];
     
-    knobCircle2.layer.shadowColor = RGB(169, 159, 146).CGColor;
-    knobCircle2.layer.shadowOffset = CGSizeMake(-2, 3);
-    knobCircle2.layer.shadowOpacity = 0.5f;
-    knobCircle2.layer.shadowRadius = 0.5f;
+//    knobCircle2.layer.shadowColor = RGB(169, 159, 146).CGColor;
+//    knobCircle2.layer.shadowOffset = CGSizeMake(-2, 3);
+//    knobCircle2.layer.shadowOpacity = 0.5f;
+//    knobCircle2.layer.shadowRadius = 0.5f;
     
     
     //  里面的旋钮
@@ -79,10 +58,10 @@ static CGFloat lastRadius = 0;
     knobCircle1.backgroundColor = RGB(225, 225, 225);
     [self.view addSubview:knobCircle1];
     
-    knobCircle1.layer.shadowColor = RGB(169, 159, 146).CGColor;
-    knobCircle1.layer.shadowOffset = CGSizeMake(-4, 6);
-    knobCircle1.layer.shadowOpacity = 0.9f;
-    knobCircle1.layer.shadowRadius = 5.5;
+//    knobCircle1.layer.shadowColor = RGB(169, 159, 146).CGColor;
+//    knobCircle1.layer.shadowOffset = CGSizeMake(-4, 6);
+//    knobCircle1.layer.shadowOpacity = 0.9f;
+//    knobCircle1.layer.shadowRadius = 5.5;
     
     
     //  Main旋钮
@@ -253,7 +232,32 @@ static CGFloat lastRadius = 0;
     
 }
 
+
+
+#pragma mark - 设置外围的扇环形
+- (void)initSetFanView
+{
+    CGFloat delta_distance = 26;
+    
+    fanView = [[FanView alloc] initWithFrame:CGRectMake(0, 0, knob_width + delta_distance * 2, knob_width + delta_distance * 2)];
+    fanView.center = knob.center;
+    fanView.backgroundColor = [UIColor clearColor];
+    fanView.userInteractionEnabled = NO;
+    [self.view addSubview:fanView];
+    
+    //设置光源
+    lightSource = CGPointMake(300, 100);
+    fanView.knobValue = -startAngleValue;//设置起始点
+    fanView.lightSource_InWindow = lightSource;
+    UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    lightView.backgroundColor = [UIColor blackColor];
+    lightView.center = lightSource;
+    [self.view addSubview:lightView];
+}
+
+
 @end
+
 
 
 

@@ -1,14 +1,14 @@
 //
-//  DrawLineView.m
+//  LineViewWithVerticalAssist.m
 //  circleDemo
 //
 //  Created by apple on 15/12/3.
 //  Copyright © 2015年 apple. All rights reserved.
 //
 
-#import "DrawLineView.h"
+#import "LineViewWithVerticalAssist.h"
 
-@implementation DrawLineView
+@implementation LineViewWithVerticalAssist
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -27,12 +27,12 @@
     
     //和光源的连线
     [self drawLineWithPoint1:_point_LightSource withPoint2:_point_FinalCenter];
-    //和光源连线的反向延长
+    //和光源连线的反向延长线
     [self drawLineWithOriginPoint:_point_LightSource withLine:_line_LightToFinal withLength:-3 needSetShaowPoint:YES];
 
     //垂直平分线
     [self drawLineWithOriginPoint:_point_LightSource withLine:_line_PerBise withLength:_length_PerBise needSetShaowPoint:NO];
-    //垂直平分线反向延长
+    //垂直平分线反向延长线
     BOOL drawFullLine = YES;
     if (drawFullLine) {
         [self drawLineWithOriginPoint:_point_LightSource withLine:_line_PerBise withLength:-_length_PerBise needSetShaowPoint:NO];

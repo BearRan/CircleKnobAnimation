@@ -1,5 +1,5 @@
 //
-//  DrawLineView.h
+//  LineViewWithVerticalAssist.h
 //  circleDemo
 //
 //  Created by apple on 15/12/3.
@@ -8,20 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "LineMath.h"
-#import "ViewWithVertixView.h"
+#import "ViewWithAutoShadow.h"
 
-@class DrawLineView;
+@class LineViewWithVerticalAssist;
 
 @protocol getShaowPoint <NSObject>
 
 @required
-- (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithVertixView *)tempView;
+- (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithAutoShadow *)tempView;
 
 @end
 
 
 
-@interface DrawLineView : UIView
+@interface LineViewWithVerticalAssist : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
@@ -35,6 +35,6 @@
 @property (strong, nonatomic) LineMath  *line_PerBise;          //  垂直平分线 表达式
 
 
-@property (strong, nonatomic) ViewWithVertixView    *perBiseView_Base;  //  绘制垂直平分线的BaseView 
+@property (strong, nonatomic) ViewWithAutoShadow    *perBiseView_Base;  //  绘制垂直平分线的BaseView
 
 @end

@@ -1,23 +1,23 @@
 //
-//  ViewWithVertixView.m
+//  ViewWithAutoShadow.m
 //  circleDemo
 //
 //  Created by apple on 15/12/3.
 //  Copyright © 2015年 apple. All rights reserved.
 //
 
-#import "ViewWithVertixView.h"
+#import "ViewWithAutoShadow.h"
 #import "LineMath.h"
 #import "UIView+MySet.h"
 #import "AppDelegate.h"
-#import "DrawLineView.h"
+#import "LineViewWithVerticalAssist.h"
 
-@interface ViewWithVertixView ()<getShaowPoint>
+@interface ViewWithAutoShadow ()<getShaowPoint>
 
 @end
 
 
-@implementation ViewWithVertixView
+@implementation ViewWithAutoShadow
 
 static CGFloat pointWidth = 2.0f;
 
@@ -76,9 +76,8 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     CGFloat calucateAngle = atan(tanA);
     CGFloat radius = radiansToDegrees(calucateAngle);
     
-    NSLog(@"calucateAngle:%f", radius);
     AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
-    DrawLineView *lineView = [[DrawLineView alloc] initWithFrame:myDelegate.window.bounds];
+    LineViewWithVerticalAssist *lineView = [[LineViewWithVerticalAssist alloc] initWithFrame:myDelegate.window.bounds];
     lineView.backgroundColor = [UIColor clearColor];
     lineView.userInteractionEnabled = NO;
     [myDelegate.window addSubview:lineView];
@@ -97,7 +96,7 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     [lineView setNeedsDisplay];
 }
 
-- (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithVertixView *)tempView
+- (void)getShadowPoint:(CGPoint)shadowPoint tempView:(ViewWithAutoShadow *)tempView
 {
     //绘制阴影
     CGPoint shadowPointFinal = [tempView convertPoint:shadowPoint fromView:self.window];

@@ -18,6 +18,9 @@
 #define        startAngleValue (90 - (fullAngleValue - fanShowCount*angleForFan)/2)
 #define        endAngleValue   startAngleValue
 
+//  绘制辅助线
+static BOOL drawAssistLine  = NO;
+
 //  角度转弧度
 #define degreesToRadian(x) (M_PI * x / 180.0)
 

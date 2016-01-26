@@ -7,6 +7,7 @@
 //
 
 #import "LineViewWithVerticalAssist.h"
+#import "UIView+MySet.h"
 
 @implementation LineViewWithVerticalAssist
 
@@ -43,6 +44,10 @@
 //根据两点绘制一条直线
 - (void)drawLineWithPoint1:(CGPoint)point1 withPoint2:(CGPoint)point2
 {
+    if (drawAssistLine == NO) {
+        return;
+    }
+    
     //1.获得图形上下文
     CGContextRef context = UIGraphicsGetCurrentContext();
     

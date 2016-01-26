@@ -49,19 +49,38 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     return CGPointMake((point1.x + point2.x)/2, (point1.y + point2.y)/2);
 }
 
+//  判断根View的super是否为UIWindow类
+- (BOOL)judgeRootParentViewIsWindow:(UIView *)view
+{
+    if ([view superview] == nil) {
+        if ([view isKindOfClass:[UIWindow class]]) {
+            return YES;
+        }else{
+            return NO;
+        }
+    }else{
+        return [self judgeRootParentViewIsWindow:[view superview]];
+    }
+}
+
 - (void)calucateAngleWithSourcePoint:(CGPoint)sourcePoint parentView:(UIView *)parentView
 {
+    UIView *toView = nil;
+    if (![self judgeRootParentViewIsWindow:self]) {
+        toView = [self superview];
+    }
+    
     CGPoint pointA = [self convertPoint:self.point_V1.center fromView:self];
-    CGPoint pointA1 = [self convertPoint:pointA toView:nil];
+    CGPoint pointA1 = [self convertPoint:pointA toView:toView];
     
     CGPoint pointB = [self convertPoint:self.point_V2.center fromView:self];
-    CGPoint pointB1 = [self convertPoint:pointB toView:nil];
+    CGPoint pointB1 = [self convertPoint:pointB toView:toView];
     
     CGPoint pointC = [self convertPoint:self.point_V3.center fromView:self];
-    CGPoint pointC1 = [self convertPoint:pointC toView:nil];
+    CGPoint pointC1 = [self convertPoint:pointC toView:toView];
     
-    CGPoint pointD = [self convertPoint:self.point_V4.center fromView:self];
-    CGPoint pointD1 = [self convertPoint:pointD toView:nil];
+    //CGPoint pointD = [self convertPoint:self.point_V4.center fromView:self];
+    //CGPoint pointD1 = [self convertPoint:pointD toView:toView];
     
     
     CGPoint centerPoint = getCenterPoint(pointA1, pointC1);
@@ -72,9 +91,6 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     //和光源的连线
     LineMath *line2 = [[LineMath alloc] initWithPoint1:centerPoint withPoint2:sourcePoint];
     
-    CGFloat tanA = ABS( (line2.k - line1.k) / (1 + line1.k*line2.k) );
-    CGFloat calucateAngle = atan(tanA);
-    CGFloat radius = radiansToDegrees(calucateAngle);
     
     AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
     LineViewWithVerticalAssist *lineView = [[LineViewWithVerticalAssist alloc] initWithFrame:myDelegate.window.bounds];

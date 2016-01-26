@@ -56,13 +56,8 @@ static CGFloat lastRadius = 0;
     [knobCircle2 setCenter:CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)];
     knobCircle2.layer.cornerRadius = CGRectGetWidth(knobCircle2.frame) / 2;
     knobCircle2.backgroundColor = RGB(215, 215, 215);
-    knobCircle2.showAssistPoint = YES;
+    knobCircle2.showAssistPoint = NO;
     [self.view addSubview:knobCircle2];
-    
-//    knobCircle2.layer.shadowColor = RGB(169, 159, 146).CGColor;
-//    knobCircle2.layer.shadowOffset = CGSizeMake(-2, 3);
-//    knobCircle2.layer.shadowOpacity = 0.5f;
-//    knobCircle2.layer.shadowRadius = 0.5f;
     
     
     //  里面的旋钮
@@ -70,15 +65,8 @@ static CGFloat lastRadius = 0;
     [knobCircle1 setCenter:CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)];
     knobCircle1.layer.cornerRadius = knob_width / 2;
     knobCircle1.backgroundColor = RGB(225, 225, 225);
-    knobCircle1.showAssistPoint = YES;
+    knobCircle1.showAssistPoint = NO;
     [self.view addSubview:knobCircle1];
-    
-    
-    
-//    knobCircle1.layer.shadowColor = RGB(169, 159, 146).CGColor;
-//    knobCircle1.layer.shadowOffset = CGSizeMake(-4, 6);
-//    knobCircle1.layer.shadowOpacity = 0.9f;
-//    knobCircle1.layer.shadowRadius = 5.5;
     
     
     //  Main旋钮

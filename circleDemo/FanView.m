@@ -127,7 +127,7 @@ static CGFloat  lineWidth = 10.0f;
             
             //  方格view 可辅助绘制垂直平分线
             ViewWithAutoShadow *viewBlock = [[ViewWithAutoShadow alloc] initWithFrame:CGRectMake(block_x, block_y, blockWidth, blockHeight)];
-            viewBlock.showAssistPoint = YES;
+            viewBlock.showAssistPoint = NO;
             viewBlock.backgroundColor = [UIColor colorWithRed:248/255.0 green:238/255.0 blue:237/255.0 alpha:1.0f];
             [self addSubview:viewBlock];
             

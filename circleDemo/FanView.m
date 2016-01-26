@@ -15,11 +15,11 @@ static CGFloat  lineWidth = 10.0f;
 
 @interface FanView ()
 {
-    //扇环形进度条 背景
+    //  扇环形进度条 背景
     CGContextRef    contextBack;
     UIBezierPath    *bezierPathBack;
     
-    //扇环形进度条 前景
+    //  扇环形进度条 前景
     CGContextRef    contextFore;
     UIBezierPath    *bezierPathFore;
 }
@@ -107,6 +107,11 @@ static CGFloat  lineWidth = 10.0f;
     CGContextSetLineDash(context, 0, lengths, 2);
     CGContextDrawPath(context, kCGPathFillStroke);//最后一个参数是填充类型
     
+    
+    if (!self.blockViewArray) {
+        self.blockViewArray = [[NSMutableArray alloc] init];
+    }
+    
     //  绘制小方格view（并且只绘制一次）
     static BOOL drawBlock = NO;
     if (!drawBlock) {
@@ -136,8 +141,9 @@ static CGFloat  lineWidth = 10.0f;
             CGAffineTransform rotate = GetCGAffineTransformRotateAroundPoint1(viewBlock.center.x, viewBlock.center.y, CGRectGetWidth(frame)/2, CGRectGetHeight(frame)/2, blockAngle/180.0 * M_PI);
             [viewBlock setTransform:rotate];
             
-            AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
-            [viewBlock calucateAngleWithSourcePoint:_lightSource_InWindow parentView:myDelegate.window];
+            [viewBlock calucateAngleWithSourcePoint:_lightSource_InWindow parentView:self];
+            
+            [self.blockViewArray addObject:viewBlock];
         }
     }
 }
@@ -161,4 +167,25 @@ CGAffineTransform GetCGAffineTransformRotateAroundPoint1(float centerX, float ce
     [self setNeedsDisplay];
 }
 
+@synthesize lightSource_InWindow = _lightSource_InWindow;
+- (void)setLightSource_InWindow:(CGPoint)lightSource_InWindow
+{
+    _lightSource_InWindow = lightSource_InWindow;
+    
+    for (int i = 0; i < [self.blockViewArray count]; i++) {
+        ViewWithAutoShadow *viewBlock = self.blockViewArray[i];
+        
+        if (viewBlock) {
+            AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
+            [viewBlock calucateAngleWithSourcePoint:_lightSource_InWindow parentView:myDelegate.window];
+        }
+    }
+    
+    [self setNeedsDisplay];
+}
+
 @end
+
+
+
+

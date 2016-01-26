@@ -135,11 +135,9 @@ static CGFloat lastRadius = 0;
     [sunImgView setmyCenterY:sunImgView.center.y + point.y - CGRectGetHeight(sunImgView.frame)/2];
     
     lightSource = sunImgView.center;
-//    fanView.lightSource_InWindow = lightSource;
+    fanView.lightSource_InWindow = lightSource;
     [knobCircle2 calucateAngleWithSourcePoint:lightSource parentView:self.view];
     [knobCircle1 calucateAngleWithSourcePoint:lightSource parentView:self.view];
-    
-    
 }
 
 - (void)tapEvent:(UIGestureRecognizer *)tapGesture

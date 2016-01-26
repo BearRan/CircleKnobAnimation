@@ -13,4 +13,7 @@
 @property (nonatomic, assign) CGFloat   knobValue;
 @property (nonatomic, assign) CGPoint   lightSource_InWindow;
 
+//  小方格view的数组
+@property (nonatomic, strong) NSMutableArray  *blockViewArray;
+
 @end

@@ -101,18 +101,20 @@
         i = 1;
     }
     
-    //反向延长线的点
     y2 = point.y + i * sin(angle)*length;
     x2 = point.x + i * cos(angle)*length;
     
+    //和光源连线的四个特殊位置
     if ([line isEqual:_line_LightToFinal]) {
         //左
         if (_point_LightSource.x < _point_FinalCenter.x && _point_LightSource.y == _point_FinalCenter.y) {
             x2 = point.x + (-1) * length;
+            y2 = point.y;
         }
         //右
         else if (_point_LightSource.x > _point_FinalCenter.x && _point_LightSource.y == _point_FinalCenter.y){
             x2 = point.x + (+1) * length;
+            y2 = point.y;
         }
         //上
         else if (_point_LightSource.x == _point_FinalCenter.x && _point_LightSource.y < _point_FinalCenter.y){
@@ -126,6 +128,7 @@
         }
     }
     
+    //反向延长线的点
     CGPoint point2 = CGPointMake(x2, y2);
     
     

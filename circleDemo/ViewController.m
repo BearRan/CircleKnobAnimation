@@ -46,9 +46,9 @@ static CGFloat lastRadius = 0;
     self.view.backgroundColor = RGB(235, 235, 235);
     
     [self initSetKnobView];
-//    [self initSetFanView];
+    [self initSetFanView];
     
-//    [knobCircle2 calucateAngleWithSourcePoint:lightSource parentView:self.view];
+    [knobCircle2 calucateAngleWithSourcePoint:lightSource parentView:self.view];
     [knobCircle1 calucateAngleWithSourcePoint:lightSource parentView:self.view];
 }
 

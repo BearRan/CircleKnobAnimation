@@ -78,24 +78,6 @@
 
 - (void)drawLineWithOriginPoint:(CGPoint)point withLine:(LineMath *)line withLength:(CGFloat)length needSetShaowPoint:(BOOL)needSetShaowPoint
 {
-//    NSLog(@"point:%@", NSStringFromCGPoint(point));
-    
-    if (point.x > 250 && point.x < 300) {
-//        NSLog(@"point:%@", NSStringFromCGPoint(point));
-//        
-//        CGFloat angle = atan(line.k);
-//        CGFloat sin1 = sin(angle);
-//        CGFloat cos1 = cos(angle);
-//        NSLog(@"k:%f", line.k);
-//        NSLog(@"angle:%f", angle);
-//        NSLog(@"sin1:%f", sin1);
-//        NSLog(@"cos1:%f", cos1);
-        
-    }
-    
-    _point_FinalCenter;
-    _point_LightSource;
-    
     //斜率转换成角度
     CGFloat angle = atan(line.k);
     CGFloat y2;
@@ -103,24 +85,32 @@
     int i = angle > 0 ? -1 : 1;
     
     CGFloat radius = radiansToDegrees(angle);
-    if (radius != 0) {
-        
-        
-        
-        CGFloat sin1 = sin(radius);
-        CGFloat cos1 = cos(radius);
-        
-//        NSLog(@"radius:%f", radius);
-//        NSLog(@"sin1:%f", sin1);
-//        NSLog(@"cos1:%f", cos1);
-//        NSLog(@"angle:%f", angle);
-        
-        NSLog(@"--");
-    }
+    
+//    if (radius != 0) {
+//        
+//        
+//        
+//        CGFloat sin1 = sin(radius);
+//        CGFloat cos1 = cos(radius);
+//        
+////        NSLog(@"radius:%f", radius);
+////        NSLog(@"sin1:%f", sin1);
+////        NSLog(@"cos1:%f", cos1);
+////        NSLog(@"angle:%f", angle);
+//        
+////        NSLog(@"--");
+//    }
     
     
     CGFloat sin1 = sin(radius);
     CGFloat cos1 = cos(radius);
+
+    
+    
+//    if (radius == 0) {
+//        NSLog(@"sin1:%f", sin1);
+//        NSLog(@"cos1:%f", cos1);
+//    }
     
     CGFloat ratioX = 1;
     CGFloat ratioY = 1;
@@ -129,57 +119,91 @@
     if (_point_LightSource.x <= _point_FinalCenter.x && _point_LightSource.y < _point_FinalCenter.y) {
         ratioX = -1;
         ratioY = -1;
-        NSLog(@"左上 -1");
+//        NSLog(@"左上 -1");
     }
     //右上象限
     else if (_point_LightSource.x > _point_FinalCenter.x && _point_LightSource.y < _point_FinalCenter.y){
         ratioX = 1;
         ratioY = 1;
-        NSLog(@"右上 +1");
+//        NSLog(@"右上 +1");
     }
     //左下象限
     else if (_point_LightSource.x <= _point_FinalCenter.x && _point_LightSource.y > _point_FinalCenter.y){
         ratioX = -1;
         ratioY = -1;
-        NSLog(@"左下 -1");
+//        NSLog(@"左下 -1");
     }
     //右下象限
     else if (_point_LightSource.x > _point_FinalCenter.x && _point_LightSource.y > _point_FinalCenter.y){
         ratioX = 1;
         ratioY = 1;
-        NSLog(@"右下 +1");
+//        NSLog(@"右下 +1");
     }
     
-    
-    //左
-    if (_point_LightSource.x < _point_FinalCenter.x && _point_LightSource.y == _point_FinalCenter.y) {
-        ratioX = -1;
-        ratioY = 0;
-        NSLog(@"左 -1");
-    }
-    //右
-    else if (_point_LightSource.x > _point_FinalCenter.x && _point_LightSource.y == _point_FinalCenter.y){
-        ratioX = 1;
-        ratioY = 0;
-        NSLog(@"右 +1");
-    }
-    //上
-    else if (_point_LightSource.x == _point_FinalCenter.x && _point_LightSource.y < _point_FinalCenter.y){
-        ratioX = 0;
-        ratioY = 1;
-        NSLog(@"上 -1");
-    }
-    //下
-    else if (_point_LightSource.x == _point_FinalCenter.x && _point_LightSource.y > _point_FinalCenter.y){
-        ratioX = 0;
-        ratioY = -1;
-        NSLog(@"下 -1");
-    }
     
     //反向延长线的点
     y2 = point.y + ratioY * sin(angle)*length;
     x2 = point.x + ratioX * cos(angle)*length;
+    
+    if (length == -3) {
+        //左
+        if (_point_LightSource.x < _point_FinalCenter.x && _point_LightSource.y == _point_FinalCenter.y) {
+            x2 = point.x + (-1) * length;
+            //y2 = point.y;
+//            NSLog(@"左 －1  x2:%f, point.x%f, length:%f", x2, point.x, length);
+        }
+        //右
+        else if (_point_LightSource.x > _point_FinalCenter.x && _point_LightSource.y == _point_FinalCenter.y){
+            x2 = point.x + (+1) * length;
+            //y2 = point.y;
+//            NSLog(@"右 ＋1  x2:%f, point.x%f, length:%f", x2, point.x, length);
+        }
+        //上
+        else if (_point_LightSource.x == _point_FinalCenter.x && _point_LightSource.y < _point_FinalCenter.y){
+            x2 = point.x;
+            y2 = point.y + (-1) * length;
+//            NSLog(@"上 ＋1  y2:%f, point.y%f, length:%f", y2, point.y, length);
+        }
+        //下
+        else if (_point_LightSource.x == _point_FinalCenter.x && _point_LightSource.y > _point_FinalCenter.y){
+            x2 = point.x;
+            y2 = point.y + (+1) * length;
+//            NSLog(@"下 -1  y2:%f, point.y%f, length:%f", y2, point.y, length);
+        }
+    }
+    else{
+        //左
+        if (_point_LightSource.x < _point_FinalCenter.x && _point_LightSource.y == _point_FinalCenter.y) {
+//            x2 = point.x + (-1) * length;
+//            NSLog(@"左 －1  x2:%f, point.x%f, length:%f", x2, point.x, length);
+        }
+        //右
+        else if (_point_LightSource.x > _point_FinalCenter.x && _point_LightSource.y == _point_FinalCenter.y){
+//            x2 = point.x + (+1) * length;
+//            NSLog(@"右 ＋1  x2:%f, point.x%f, length:%f", x2, point.x, length);
+        }
+        //上
+        else if (_point_LightSource.x == _point_FinalCenter.x && _point_LightSource.y < _point_FinalCenter.y){
+//            y2 = point.y + (-1) * length;
+//            NSLog(@"上 ＋1  y2:%f, point.y%f, length:%f", y2, point.y, length);
+        }
+        //下
+        else if (_point_LightSource.x == _point_FinalCenter.x && _point_LightSource.y > _point_FinalCenter.y){
+//            y2 = point.y + (+1) * length;
+//            NSLog(@"下 -1  y2:%f, point.y%f, length:%f", y2, point.y, length);
+        }
+    }
+    
+    
     CGPoint point2 = CGPointMake(x2, y2);
+    
+    if ([line isEqual:_line_PerBise]) {
+        NSLog(@"point:%@", NSStringFromCGPoint(point));
+        NSLog(@"point2:%@", NSStringFromCGPoint(point2));
+        NSLog(@"sin(angle):%f", sin(angle));
+        NSLog(@"cos(angle):%f", cos(angle));
+        NSLog(@"--");
+    }
     
     //绘制线
     [self drawLineWithPoint1:point withPoint2:point2];
@@ -192,7 +216,8 @@
     }
 }
 
-
+//point:{187.5, 333.5}
+//point2:{212.5, 358.5}
 
 #pragma mark Rewrite Method
 

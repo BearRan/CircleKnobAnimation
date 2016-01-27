@@ -18,8 +18,10 @@
 #define        startAngleValue (90 - (fullAngleValue - fanShowCount*angleForFan)/2)
 #define        endAngleValue   startAngleValue
 
-//  绘制辅助线
+//  开关 光源点到目的中心，垂直平分线，反向延长线
 static BOOL drawAssistLine  = NO;
+//  开关 大旋钮里的辅助线
+static BOOL showKnobReferenceLine = NO;
 
 //  角度转弧度
 #define degreesToRadian(x) (M_PI * x / 180.0)

@@ -45,11 +45,13 @@ static CGFloat lastRadius = 0;
     
     self.view.backgroundColor = RGB(235, 235, 235);
     
+    //  初始化
     [self initSetKnobView];
     [self initSetFanView];
     
-    [knobCircle2 calucateAngleWithSourcePoint:lightSource parentView:self.view];
-    [knobCircle1 calucateAngleWithSourcePoint:lightSource parentView:self.view];
+    //  绘制阴影效果
+    [knobCircle2 drawShadowEffectWithSourcePoint:lightSource assistInView:self.view];
+    [knobCircle1 drawShadowEffectWithSourcePoint:lightSource assistInView:self.view];
 }
 
 
@@ -82,9 +84,8 @@ static CGFloat lastRadius = 0;
     [self.view addSubview:knob];
     
     
-    //  参考线开关
-    BOOL showReferenceLine = NO;
-    if (showReferenceLine) {
+    //  旋钮里的参考线开关
+    if (showKnobReferenceLine) {
         int seperateLineCount = fanCount / 2;
         for (int i = 0; i < seperateLineCount; i++) {
             UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, knob_width/2, knob_width, 1)];
@@ -135,9 +136,11 @@ static CGFloat lastRadius = 0;
     [sunImgView setmyCenterY:sunImgView.center.y + point.y - CGRectGetHeight(sunImgView.frame)/2];
     
     lightSource = sunImgView.center;
+    
+    //  绘制阴影效果
     fanView.lightSource_InWindow = lightSource;
-    [knobCircle2 calucateAngleWithSourcePoint:lightSource parentView:self.view];
-    [knobCircle1 calucateAngleWithSourcePoint:lightSource parentView:self.view];
+    [knobCircle2 drawShadowEffectWithSourcePoint:lightSource assistInView:self.view];
+    [knobCircle1 drawShadowEffectWithSourcePoint:lightSource assistInView:self.view];
 }
 
 - (void)tapEvent:(UIGestureRecognizer *)tapGesture

@@ -67,7 +67,7 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
     }
 }
 
-- (void)calucateAngleWithSourcePoint:(CGPoint)sourcePoint parentView:(UIView *)parentView
+- (void)drawShadowEffectWithSourcePoint:(CGPoint)sourcePoint assistInView:(UIView *)assistInView
 {
     UIView *toView = nil;
     if (![self judgeRootParentViewIsWindow:self]) {
@@ -100,8 +100,8 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
         drawLineView = [[LineViewWithVerticalAssist alloc] initWithFrame:myDelegate.window.bounds];
         drawLineView.backgroundColor = [UIColor clearColor];
         drawLineView.userInteractionEnabled = NO;
-        [parentView addSubview:drawLineView];
-        [parentView bringSubviewToFront:drawLineView];
+        [assistInView addSubview:drawLineView];
+        [assistInView bringSubviewToFront:drawLineView];
     }
     
     //点与光源的连线
@@ -132,6 +132,7 @@ CGPoint getCenterPoint(CGPoint point1, CGPoint point2)
 
 #pragma mark Rewrite showAssisPoint
 
+//UI的四个顶点，和中心点
 @synthesize showAssistPoint = _showAssistPoint;
 - (void)setShowAssistPoint:(BOOL)showAssistPoint
 {

@@ -142,7 +142,7 @@ static CGFloat  lineWidth = 10.0f;
             [viewBlock setTransform:rotate];
             
             AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
-            [viewBlock calucateAngleWithSourcePoint:_lightSource_InWindow parentView:myDelegate.window];
+            [viewBlock drawShadowEffectWithSourcePoint:_lightSource_InWindow assistInView:myDelegate.window];
             
             [self.blockViewArray addObject:viewBlock];
         }
@@ -178,7 +178,7 @@ CGAffineTransform GetCGAffineTransformRotateAroundPoint1(float centerX, float ce
         
         if (viewBlock) {
             AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
-            [viewBlock calucateAngleWithSourcePoint:_lightSource_InWindow parentView:myDelegate.window];
+            [viewBlock drawShadowEffectWithSourcePoint:_lightSource_InWindow assistInView:myDelegate.window];
         }
     }
     
